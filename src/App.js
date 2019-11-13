@@ -4,8 +4,9 @@ import TodoTemplate from './components/TodoTemplate';
 import TodoHead from './components/TodoHead';
 import TodoList from './components/TodoList';
 import TodoCreate from './components/TodoCreate';
-import person from './img/person.png';
 import { TodoProvider } from './TodoContext';
+import User from './components/User';
+import { UserProvider } from './UserContext';
 
 // GlobalStyle지정 배경색
 const GlobalStyle = createGlobalStyle`
@@ -16,24 +17,24 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   return (
-    <TodoProvider>
+    <UserProvider>
       <GlobalStyle/>
-      <div>
-      <img src={person} style={{width:'200px',height: '250px', marginLeft: '200px', marginTop:'200px'}} alt='사람'/>
-      <span>이재준님</span>
-      <span>66kg</span>
+      <TodoProvider menu="food">
         <TodoTemplate>
-          <TodoHead title='식단관리'/>
+          <TodoHead title='오늘의 식단'/>
+          <TodoList/>
+          <TodoCreate menu='food'/>
+        </TodoTemplate>
+      </TodoProvider>
+      <TodoProvider>
+        <TodoTemplate>
+          <TodoHead title='오늘의 운동'/>
           <TodoList/>
           <TodoCreate/>
         </TodoTemplate>
-        <TodoTemplate>
-          <TodoHead title='운동관리'/>
-          <TodoList/>
-          <TodoCreate/>
-        </TodoTemplate>
-      </div>
-    </TodoProvider>
+      </TodoProvider>
+      <User/>
+    </UserProvider>
   );
 }
 

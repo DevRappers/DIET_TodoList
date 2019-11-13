@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import { useTodoState } from '../TodoContext';
+import Dialog from './Dialog';
+import { darken, lighten } from 'polished';
 
 const TodoHeadBlock = styled.div`
     padding-top: 48px;
@@ -27,12 +29,53 @@ const TodoHeadBlock = styled.div`
     }
 `;
 
+const StyledButton = styled.button`
+  /* 공통 스타일 */
+  display: inline-flex;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  height: 2.25rem;
+  font-size: 1rem;
+
+  margin-top: 20px;
+  
+  background: #228be6;
+  &:hover {
+    background: ${lighten(0.1, '#228be6')};
+  }
+  &:active {
+    background: ${darken(0.1, '#228be6')};
+  }
+`;
+
 function TodoHead({title}){
     const todos = useTodoState();
+    const undoneTasks = todos.filter(todo => !todo.done);
+    
+    const [dialog, setDialog] = useState(false);
+
+    const onClick = () => {
+        setDialog(true);
+    }
+    const onConfirm = () => {
+        console.log('확인');
+        setDialog(false);
+    }
+
     return(
         <TodoHeadBlock>
             <h1>{title}</h1>
-            <div className="tasks-left">할 일 2개 남음</div>
+            <StyledButton onClick={onClick}>클리어한 목록보기</StyledButton>
+            <div className="tasks-left">할 일 {undoneTasks.length}개 남음</div>
+            <Dialog
+                title="클리어한 일정확인"
+                onConfirm={onConfirm}
+                visible={dialog}
+            > 데이터입니다.</Dialog>
         </TodoHeadBlock>
     )
 }

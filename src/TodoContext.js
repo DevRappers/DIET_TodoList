@@ -1,24 +1,49 @@
 import React, { useReducer, createContext, useContext, useRef } from 'react';
 
-const initialTodos = [
+// 운동 기본값
+const initialMotions = [
     {
         id: 1,
-        text: '프로젝트 생성하기',
-        done: true
+        text: '데드리프트 20회',
+        done: false
     },
     {
         id: 2,
-        text: '컴포넌트 스타일링하기',
-        done: true
+        text: '줄넘기 100회',
+        done: false
     },
     {
         id: 3,
-        text: 'Context 만들기',
+        text: '런닝머신 30분',
         done: false
     },
     {
         id: 4,
-        text: '기능 구현하기',
+        text: '스쿼드 20회',
+        done: false
+    }
+];
+
+// 식단 기본값
+const initialFoods = [
+    {
+        id: 1,
+        text: '바나나 한개',
+        done: false
+    },
+    {
+        id: 2,
+        text: '고구마 1개',
+        done: false
+    },
+    {
+        id: 3,
+        text: '계란 한개',
+        done: false
+    },
+    {
+        id: 4,
+        text: '미숫가루 한잔',
         done: false
     }
 ];
@@ -42,14 +67,21 @@ const TodoStateContext = createContext();
 const TodoDispatchContext = createContext();
 const TodoNextIdContext = createContext();
 
-export function TodoProvider({children})
+export function TodoProvider({children, menu})
 {
-    const [state, dispatch] = useReducer(todoReducer, initialTodos);
-    const nextId = useRef(4);
+    const m = menu === 'food' ? true : false;
+
+    const [state, dispatch] = useReducer(todoReducer, 
+        m ? initialFoods : initialMotions
+    );
+
+    const foodNextId = useRef(5);
+    const motionNextId = useRef(5);
+
     return (
         <TodoStateContext.Provider value={state}>
             <TodoDispatchContext.Provider value={dispatch}>
-                <TodoNextIdContext.Provider value={nextId}>
+                <TodoNextIdContext.Provider value={m ? foodNextId : motionNextId}>
                     {children}
                 </TodoNextIdContext.Provider>
             </TodoDispatchContext.Provider>
