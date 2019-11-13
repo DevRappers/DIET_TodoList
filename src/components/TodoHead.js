@@ -54,8 +54,9 @@ const StyledButton = styled.button`
 
 function TodoHead({title}){
     const todos = useTodoState();
-    const undoneTasks = todos.filter(todo => todo.done);
-    
+    const undoneTasks = todos.filter(todo => !todo.done);
+    const doneTasks = todos.filter(todo => todo.done);
+
     const [dialog, setDialog] = useState(false);
 
     const onClick = () => {
@@ -69,13 +70,13 @@ function TodoHead({title}){
     return(
         <TodoHeadBlock>
             <h1>{title}</h1>
-            <StyledButton onClick={onClick}>클리어한 목록보기</StyledButton>
+            <StyledButton onClick={onClick}>클리어한 항목보기</StyledButton>
             <div className="tasks-left">할 일 {undoneTasks.length}개 남음</div>
             <Dialog
-                title="클리어한 일정확인"
+                title="클리어한 항목보기"
                 onConfirm={onConfirm}
                 visible={dialog}
-                todos={undoneTasks}
+                todos={doneTasks}
             ></Dialog>
         </TodoHeadBlock>
     )

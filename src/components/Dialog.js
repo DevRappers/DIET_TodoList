@@ -137,7 +137,7 @@ function Dialog({ title, todos, onConfirm, visible})
                 <h3>{title}</h3>
                 <ul>
                     {   
-                        todos.map(todo => <li key={todo.id}>{todo.text}</li>) 
+                        todos.length === 0 ? <li>클리어한 항목이 없습니다.</li>:todos.map(todo => <li key={todo.id}>{todo.text}</li>) 
                     }
                 </ul>
                 <ButtonGroup>
