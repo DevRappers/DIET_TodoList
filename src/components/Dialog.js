@@ -116,7 +116,7 @@ const StyledButton = styled.button`
   }
 `;
 
-function Dialog({ title, children, onConfirm, visible})
+function Dialog({ title, todos, onConfirm, visible})
 {
     const [animate, setAnimate] = useState(false);
     const [localVisible, setLocalVisible] = useState(visible);
@@ -129,14 +129,17 @@ function Dialog({ title, children, onConfirm, visible})
         }
         setLocalVisible(visible);
     }, [localVisible, visible]);
-
     if (!animate && !localVisible) return null;
 
     return(
         <DarkBackground disappear={!visible}>
             <DialgBlock disappear={!visible}>
                 <h3>{title}</h3>
-                <p>{children}</p>
+                <ul>
+                    {   
+                        todos.map(todo => <li key={todo.id}>{todo.text}</li>) 
+                    }
+                </ul>
                 <ButtonGroup>
                     <StyledButton onClick={onConfirm}>확인</StyledButton>
                 </ButtonGroup>

@@ -54,7 +54,7 @@ const StyledButton = styled.button`
 
 function TodoHead({title}){
     const todos = useTodoState();
-    const undoneTasks = todos.filter(todo => !todo.done);
+    const undoneTasks = todos.filter(todo => todo.done);
     
     const [dialog, setDialog] = useState(false);
 
@@ -75,7 +75,8 @@ function TodoHead({title}){
                 title="클리어한 일정확인"
                 onConfirm={onConfirm}
                 visible={dialog}
-            > 데이터입니다.</Dialog>
+                todos={undoneTasks}
+            ></Dialog>
         </TodoHeadBlock>
     )
 }
