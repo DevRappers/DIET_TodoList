@@ -1,25 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { createGlobalStyle } from 'styled-components';
+import TodoTemplate from './components/TodoTemplate';
+import TodoHead from './components/TodoHead';
+import TodoList from './components/TodoList';
+import TodoCreate from './components/TodoCreate';
+
+// GlobalStyle지정 배경색
+const GlobalStyle = createGlobalStyle`
+  body{
+    background: #ffe3e3;
+  }
+`;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <GlobalStyle/>
+      <div>
+        <TodoTemplate>
+          <TodoHead title='식단관리'/>
+          <TodoList/>
+          <TodoCreate/>
+        </TodoTemplate>
+        <TodoTemplate>
+          <TodoHead title='운동관리'/>
+          <TodoList/>
+          <TodoCreate/>
+        </TodoTemplate>
+      </div>
+    </>
   );
 }
 
