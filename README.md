@@ -5,4 +5,6 @@ REACT로 만들어본 다이어트 TodoList
 
 todo를 완료할경우 몸무게감소 이벤트 생성 및 
 localStorage를 활용하여 이름과 몸무게정보 저장.
+
+## 스크린샷
 ![Alt text](screen.png)
